@@ -12,6 +12,10 @@ fastify.get('/', (req, reply) => {
   reply.view('/index.ejs', { text: 'texdat' })
 })
 
+fastify.get('/a', async (request, reply) => {
+  return { hello: 'world' }
+})
+
 fastify.listen(PORT,"0.0.0.0", (err) => {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)

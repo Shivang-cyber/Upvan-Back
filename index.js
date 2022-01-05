@@ -15,8 +15,9 @@ fastify.get('/', (req, reply) => {
 fastify.get('/a', async (request, reply) => {
   return { hello: 'world' }
 })
+fastify.register(require('./src/controllers/Product.controller'))
 
-fastify.listen(PORT,"0.0.0.0", (err) => {
+fastify.listen(PORT, '0.0.0.0', (err) => {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)
 })

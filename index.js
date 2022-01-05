@@ -1,5 +1,5 @@
 const PORT = process.env.PORT || 3001
-
+require('dotenv').config()
 const fastify = require('fastify')({ logger: true })
 
 fastify.register(require('point-of-view'), {

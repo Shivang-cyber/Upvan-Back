@@ -5,9 +5,14 @@ const getClient = async (req, reply) => {
   console.log(req.params.id)
   reply.send({ client })
 }
+const getAllClient = async (req, reply) => {
+  const client = await Client.find().lean().exec()
+
+  reply.send({ client })
+}
 const addClient = async (req, reply) => {
   const client = await Client.create(req.body)
   reply.send({ client })
 }
 
-module.exports = { getClient, addClient }
+module.exports = { getClient, addClient,getAllClient }

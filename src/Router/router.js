@@ -5,12 +5,13 @@ const {
   addProducts,
 } = require('../controllers/Product.controller')
 
-const { getClient, addClient } = require('../controllers/client.controller')
+const { getClient, addClient,getAllClient } = require('../controllers/client.controller')
 
 module.exports = fp(function productRoutes(fastify, options, done) {
   fastify.get('/pr', getProducts)
   fastify.post('/pr', addProducts)
   fastify.get('/cl/:id', getClient)
+  fastify.get('/cl/A', getAllClient)
   fastify.post('/cl', addClient)
   done()
 })

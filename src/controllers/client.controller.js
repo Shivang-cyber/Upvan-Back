@@ -58,7 +58,7 @@ const addToCart = async (req, reply) => {
     } else if (req.query.type == 'P') {
       for (let i = 0; i < C.length; i++) {
         if (C[i].item._id.toString() == req.query.item) {
-          if (client[0].in_cart[i].count < 3) {
+          if (client[0].in_cart[i].count < 11) {
             client[0].in_cart[i].count++
           }
           break
@@ -105,10 +105,46 @@ const addToCart = async (req, reply) => {
   reply.send({ cl })
 }
 
+const purchaseAll = async (req, reply) => {
+  const client = await Client.find({ mail: req.params.id })
+    .populate('in_cart.item liked.item purchased.item')
+    .lean()
+    .exec()
+
+  let date = new Date()
+  let Cd = new Date().toString().split(' ')
+  date.setDate(date.getDate() + 3)
+  date = date.toString().split(' ')
+  let Price = 0
+  client[0].in_cart.map((a) => {
+    Price += a.item.price * a.count
+  })
+
+  let O = {
+    item: client[0].in_cart,
+    price: Price,
+    deliveryDate: `${date[1]} ${date[2]} ${date[3]}`,
+    orderTime: `${Cd[1]} ${Cd[2]} ${Cd[3]} ${Cd[4]}`,
+  }
+  client[0].purchased.push(O)
+  console.log(client[0].purchased[0].item)
+  client[0].in_cart = []
+
+  let i = client[0]._id
+  i = i.toString()
+  const cl = await Client.findByIdAndUpdate(i, client[0], { new: true })
+    .populate('in_cart.item liked.item purchased.item.item')
+    .lean()
+    .exec()
+
+  reply.send({ cl })
+}
+
 module.exports = {
   getClient,
   addClient,
   getAllClient,
   updateOneClient,
   addToCart,
+  purchaseAll,
 }

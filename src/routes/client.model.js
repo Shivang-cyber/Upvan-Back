@@ -30,12 +30,18 @@ const clientSchema = mongoose.Schema(
     ],
     purchased: [
       {
-        item: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Product',
-          required: false,
-        },
-        count: { type: String, required: true },
+        item: [
+          {
+            item: {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: 'Product',
+              required: false,
+            },
+          },
+        ],
+        price: { type: String, required: false },
+        deliveryDate: { type: String, required: false },
+        orderTime: { type: String, required: false },
       },
     ],
   },

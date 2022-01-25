@@ -13,14 +13,31 @@ const clientSchema = mongoose.Schema(
       {
         item: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'client',
+          ref: 'Product',
           required: false,
         },
         count: { type: String, required: true },
       },
     ],
-    liked: [{ type: String, required: false }],
-    purchased: [{ type: String, required: false }],
+    liked: [
+      {
+        item: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Product',
+          required: false,
+        },
+      },
+    ],
+    purchased: [
+      {
+        item: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Product',
+          required: false,
+        },
+        count: { type: String, required: true },
+      },
+    ],
   },
   {
     versionKey: false,

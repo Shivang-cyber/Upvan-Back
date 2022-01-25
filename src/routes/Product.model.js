@@ -11,6 +11,7 @@ const productSchema = mongoose.Schema(
     images: [{ type: String, required: true }],
     ratings: { type: Number, required: false },
     reviews: [{ type: String, required: false }],
+    c: { type: Number, required: true },
   },
   {
     versionKey: false,

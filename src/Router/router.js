@@ -9,7 +9,8 @@ const {
   getClient,
   addClient,
   getAllClient,
-  updateOneClient
+  updateOneClient,
+  addToCart
 } = require('../controllers/client.controller')
 const {
   getAllComment,
@@ -25,6 +26,7 @@ module.exports = fp(function productRoutes(fastify, options, done) {
   fastify.get('/cl/A', getAllClient)
   fastify.post('/cl', addClient)
   fastify.patch('/cl/:id',updateOneClient)
+  fastify.get('/cla/:id',addToCart)
   fastify.get('/co', getAllComment)
   fastify.post('/co', addComment)
   fastify.patch('/co/:id', updateOneComment)

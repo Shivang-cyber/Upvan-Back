@@ -3,6 +3,11 @@ const mongoose = require('mongoose')
 const commentSchema = mongoose.Schema(
   {
     title: { type: String, required: true },
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'product',
+      required: true,
+    },
     body: { type: String, required: true },
     author: {
       type: mongoose.Schema.Types.ObjectId,

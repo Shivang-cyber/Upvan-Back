@@ -3,7 +3,7 @@ const { Product } = require('../routes/Product.model')
 
 const getClient = async (req, reply) => {
   const client = await Client.find({ mail: req.params.id })
-    .populate('in_cart.item liked.item purchased.item')
+    .populate('in_cart.item liked.item purchased.item.item')
     .lean()
     .exec()
 
@@ -25,14 +25,13 @@ const updateOneClient = async (req, reply) => {
   })
     .lean()
     .exec()
-  console.log(req.body)
   reply.send({ client })
 }
 
 const addToCart = async (req, reply) => {
   const plant = await Product.find().lean().exec()
   const client = await Client.find({ mail: req.params.id })
-    .populate('in_cart.item liked.item purchased.item')
+    .populate('in_cart.item liked.item purchased.item.item')
     .lean()
     .exec()
   let C = client[0].in_cart
@@ -58,7 +57,7 @@ const addToCart = async (req, reply) => {
     } else if (req.query.type == 'P') {
       for (let i = 0; i < C.length; i++) {
         if (C[i].item._id.toString() == req.query.item) {
-          if (client[0].in_cart[i].count < 11) {
+          if (client[0].in_cart[i].count < 10) {
             client[0].in_cart[i].count++
           }
           break
@@ -97,7 +96,6 @@ const addToCart = async (req, reply) => {
 
   let i = client[0]._id
   i = i.toString()
-  console.log(plant)
   const cl = await Client.findByIdAndUpdate(i, client[0], { new: true })
     .lean()
     .exec()
@@ -107,7 +105,7 @@ const addToCart = async (req, reply) => {
 
 const purchaseAll = async (req, reply) => {
   const client = await Client.find({ mail: req.params.id })
-    .populate('in_cart.item liked.item purchased.item')
+    .populate('in_cart.item liked.item purchased.item.item')
     .lean()
     .exec()
 
@@ -127,7 +125,6 @@ const purchaseAll = async (req, reply) => {
     orderTime: `${Cd[1]} ${Cd[2]} ${Cd[3]} ${Cd[4]}`,
   }
   client[0].purchased.push(O)
-  console.log(client[0].purchased[0].item)
   client[0].in_cart = []
 
   let i = client[0]._id

@@ -4,12 +4,24 @@ const { Comment } = require('../routes/comment.model')
 
 const getAllProduct = async (req, reply) => {
   const product = await Product.find().lean().exec()
-  const comment = await Comment.find().populate('author',"mail details.name").lean().exec()
+  const comment = await Comment.find()
+    .populate('author', 'mail details.name')
+    .lean()
+    .exec()
   product.map((a) => {
     let c = comment.filter((b) => b.product.toString() == a._id.toString())
     a.reviews = c
   })
   reply.send({ product })
+}
+
+const updateProducts = async (req, reply) => {
+  const products = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  })
+    .lean()
+    .exec()
+  reply.send({ products })
 }
 
 const getProducts = async (req, reply) => {
@@ -26,4 +38,4 @@ const addProducts = async (req, reply) => {
   reply.send({ product })
 }
 
-module.exports = { getProducts, addProducts, getAllProduct }
+module.exports = { getProducts, addProducts, getAllProduct, updateProducts }

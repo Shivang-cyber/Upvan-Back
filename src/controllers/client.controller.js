@@ -41,16 +41,19 @@ const addToCart = async (req, reply) => {
   let C = client[0].in_cart
   if (req.query.part == 'I') {
     if (req.query.type == 'A') {
+      let T = true
       for (let i = 0; i < C.length; i++) {
         if (C[i].item._id.toString() == req.query.item) {
-          client[0].in_cart.splice(i, 1)
+          T = false
           break
         }
       }
-      let o = {}
-      o['item'] = req.query.item
-      o['count'] = 1
-      C.push(o)
+      if (T == true) {
+        let o = {}
+        o['item'] = req.query.item
+        o['count'] = 1
+        C.push(o)
+      }
     } else if (req.query.type == 'D') {
       for (let i = 0; i < C.length; i++) {
         if (C[i].item._id.toString() == req.query.item) {
@@ -112,23 +115,45 @@ const purchaseAll = async (req, reply) => {
     .populate('in_cart.item liked.item purchased.item.item')
     .lean()
     .exec()
-if (client[0].in_cart==0) {
-  reply.send("Cart Empty")
-  return
-}
+  if (client[0].in_cart == 0) {
+    reply.send('Cart Empty')
+    return
+  }
   const pr = await Product.find().lean().exec()
-
+  //order & delivery date
   let date = new Date()
   let Cd = new Date().toString().split(' ')
   date.setDate(date.getDate() + 3)
   date = date.toString().split(' ')
+  //done
   let Price = 0
   client[0].in_cart.map((a) => {
     Price += a.item.price * a.count
-    // let b = pr.filter((x) => x._id.toString() == a.item._id)
-    // console.log(b);
-  })
+    let b = pr.filter((x) => x._id.toString() == a.item._id)
 
+    if (b[0].c < a.count) {
+      reply.send(`Please reduce ${b[0].name}'s quantity`)
+      return
+    }
+  })
+  let T = true
+  client[0].in_cart.forEach(async (a) => {
+    for (let i = 0; i < pr.length; i++) {
+      if (pr[i]._id.toString() == a.item._id) {
+        if (pr[i].c >= a.count) {
+          pr[i].c -= a.count
+        } else {
+          T = false
+        }
+
+        const p = await Product.findByIdAndUpdate(pr[i]._id.toString(), pr[i], {
+          new: true,
+        })
+          .lean()
+          .exec()
+      }
+    }
+  })
   let O = {
     item: client[0].in_cart,
     price: Price,
@@ -140,12 +165,13 @@ if (client[0].in_cart==0) {
 
   let i = client[0]._id
   i = i.toString()
-  const cl = await Client.findByIdAndUpdate(i, client[0], { new: true })
-    .populate('in_cart.item liked.item purchased.item.item')
-    .lean()
-    .exec()
+  const cl = 1
 
-  reply.send({ cl })
+  if (T == true) {
+    reply.send({ cl })
+  } else {
+    reply.send('please review your cart')
+  }
 }
 
 module.exports = {

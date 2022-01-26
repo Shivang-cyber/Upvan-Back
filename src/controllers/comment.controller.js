@@ -1,7 +1,6 @@
 const { Comment } = require('../routes/comment.model')
 
 const addComment = async (req, reply) => {
-  console.log(req.body)
   const comment = await Comment.create(req.body)
   reply.send({ comment })
 }

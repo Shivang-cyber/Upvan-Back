@@ -3,6 +3,7 @@ const path = require('path')
 const {
   getProducts,
   addProducts,
+  getAllProduct,
 } = require('../controllers/Product.controller')
 
 const {
@@ -21,8 +22,9 @@ const {
 } = require('../controllers/comment.controller')
 // const { default: fastifyStatic } = require('fastify-static')
 module.exports = fp(function productRoutes(fastify, options, done) {
-  fastify.get('/pr', getProducts)
+  fastify.get('/pr/:id', getProducts)
   fastify.post('/pr', addProducts)
+  fastify.get('/pr/A', getAllProduct)
   fastify.get('/cl/:id', getClient)
   fastify.get('/cl/A', getAllClient)
   fastify.post('/cl', addClient)

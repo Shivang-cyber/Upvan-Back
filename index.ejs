@@ -1,12 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
- <meta charset="UTF-8">
- <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Document</title>
-</head>
-<body>
- <h1>tatakae tatakae</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>tatakae tatakae</h1>
+    <div id="pro">
+      <h1>Create a Product</h1>
+      <form id="createP">
+        <label for="Name">Name</label>
+        <input type="text" id="Name" /><br /><br />
+        <input
+          type="checkbox"
+          id="office"
+          class="ch"
+          name="tag"
+          value="office"
+        />
+        <label for="office"> office</label>
+        <input type="checkbox" id="indoors" name="tag" value="indoors" />
+        <label for="indoors"> Indoors</label>
+        <input type="checkbox" id="outdoors" name="tag" value="outdoors" />
+        <label for="outdoors"> outdoors</label>
+        <input type="checkbox" id="gift" name="tag" value="gift" />
+        <label for="gift"> gift</label>
+        <input type="checkbox" id="big" name="tag" value="big" />
+        <label for="big"> Big</label>
+        <input type="checkbox" id="balcony" name="tag" value="balcony" />
+        <label for="balcony"> Balcony</label><br /><br />
+        <label for="Family">Family</label>
+        <input type="text" id="Family" /><br /><br />
+        <label for="Size">Size</label>
+        <input type="text" id="Size" /><br /><br />
+        <label for="Price">Price</label>
+        <input type="text" id="Price" /><br /><br />
+        <label for="images1">IM1</label>
+        <input type="text" id="images1" /><br /><br />
+        <label for="images2">IM2</label>
+        <input type="text" id="images2" /><br /><br />
+        <label for="images3">IM3</label>
+        <input type="text" id="images3" /><br /><br />
+        <label for="images4">IM4</label>
+        <input type="text" id="images4" /><br /><br />
+        <input type="radio" id="1s" name="rat" value="1" />
+          <label for="1s">1</label>  
+        <input type="radio" id="2s" name="rat" value="2" />  
+        <label for="2s">2</label>
+        <input type="radio" id="3s" name="rat" value="3" />
+          <label for="3s">3</label>
+        <input type="radio" id="4s" name="rat" value="4" />  
+        <label for="4s">4</label>
+        <input type="radio" id="5s" name="rat" value="5" />
+          <label for="5s">5</label><br /><br />
+        <label for="Count">Count</label>
+        <input type="text" id="Count" /><br /><br />
+        <input type="submit" />
+      </form>
+    </div>
+  </body>
 </html>
+<script>
+  document.getElementById('createP').addEventListener('submit',async (a) => {
+    a.preventDefault()
+    let c = document.querySelector('input[name="rat"]:checked').value
+    let d = []
+    for (let i = 1; i < 7; i++) {
+      if (a.target[i].checked == true) d.push(a.target[i].value)
+    }
+
+    let o = {
+      name: a.target[0].value,
+      tag: [...d],
+      family: a.target[7].value,
+      size: a.target[8].value,
+      price: a.target[9].value,
+      images: [
+        a.target[10].value,
+        a.target[11].value,
+        a.target[12].value,
+        a.target[13].value,
+      ],
+      ratings: c,
+      reviews: [],
+      c: a.target[19].value,
+    }
+
+    const url = 'https://upvan-back.herokuapp.com/pr'
+    const param = {
+      method: 'Post',
+      headers: { 'content-type': 'application/json;charset=UTF-8' },
+      body:JSON.stringify(o)
+    }
+    const sendReq = await fetch(url,param)
+    const res = await sendReq.json()
+    console.log(res);
+    return res
+  })
+</script>

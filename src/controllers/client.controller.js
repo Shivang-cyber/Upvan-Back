@@ -149,6 +149,7 @@ const purchaseAll = async (req, reply) => {
         const p = await Product.findByIdAndUpdate(pr[i]._id.toString(), pr[i], {
           new: true,
         })
+          .populate('in_cart.item liked.item purchased.item.item')
           .lean()
           .exec()
       }
@@ -165,7 +166,7 @@ const purchaseAll = async (req, reply) => {
 
   let i = client[0]._id
   i = i.toString()
-  const cl = 1
+  const cl = await Client.findByIdAndUpdate(i,client[0],{new:true}).lean().exec()
 
   if (T == true) {
     reply.send({ cl })

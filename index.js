@@ -1,7 +1,15 @@
 const PORT = process.env.PORT || 3001
 require('dotenv').config()
 const fastify = require('fastify')({ logger: true })
+// const cors = require("cors")
 const path = require('path')
+
+fastify.register(require('fastify-cors'), {
+  // put your options here
+  origin: '*',
+  methods: ['POST','GET'],
+})
+
 fastify.register(require('point-of-view'), {
   engine: {
     ejs: require('ejs'),

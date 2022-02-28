@@ -10,6 +10,7 @@ const productSchema = mongoose.Schema(
     size: { type: String, required: true },
     price: { type: String, required: true },
     images: [{ type: String, required: true }],
+    description:{type: String, required: false},
     ratings: { type: Number, required: false },
     reviews: [
       {

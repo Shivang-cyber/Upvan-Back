@@ -1,3 +1,8 @@
+```javascript
+function hello() { 
+    console.log('hello world !'); 
+} 
+```
 # Upvan-Back
 This is the backend server for Upvan App. It is responsible for all the transactions and management of the database that happens on the website.
 <h3 align="center">https://upvan-back.herokuapp.com/pr/A</h3>
@@ -27,8 +32,3 @@ function test() {
   console.log("notice the blank line before this function?");
 }
 </code>
-```javascript
-function hello() { 
-    console.log('hello world !'); 
-} 
-```

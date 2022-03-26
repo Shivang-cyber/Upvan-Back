@@ -22,8 +22,8 @@ To create a client add req body to the post request in give below format.
   }
 ```
 <div align="center"><div>heroku</div></div>
-```
+<code>javascript
 function test() {
   console.log("notice the blank line before this function?");
 }
-```
+</code>

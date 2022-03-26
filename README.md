@@ -12,15 +12,16 @@ There are several gateway to use here, primarily for development and testing pur
 <li>Client Creation</li>
 </ul>
 To create a client add req body to the post request in give below format.
-<!-- <div align="center"><div>heroku</div></div> -->
 
 ```javascript
 {
     mail: Required,
     details: {
-      name: Required,
+        name: Required,
       mob: Required,
       address: Required,
     }
   }
 ```
+
+        <div align="center"><div>heroku</div></div>

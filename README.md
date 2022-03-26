@@ -27,3 +27,8 @@ function test() {
   console.log("notice the blank line before this function?");
 }
 </code>
+```javascript
+function hello() { 
+    console.log('hello world !'); 
+} 
+```

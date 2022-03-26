@@ -35,10 +35,10 @@ curl https://upvan-back.herokuapp.com/cl/A
 <ul>
 <li>Check One Client</li>
 </ul>
-Add mail if the client in place of <mail> below.
+Add mail if the client in place of !mail! below.
 
 ```javascript
-curl https://upvan-back.herokuapp.com/cl/<mail>
+curl https://upvan-back.herokuapp.com/cl/!mail!
 ```
 
 <div align="center"><div>heroku</div></div>

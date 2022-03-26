@@ -9,6 +9,7 @@ There are several gateway to use here, primarily for development and testing pur
 <h2>Client</h2>
 <ul>
 <li>Client Creation</li>
+</ul>
 To create a client add req body to the post request in give below format.
 ```
 {
@@ -20,5 +21,4 @@ To create a client add req body to the post request in give below format.
     }
   }
 ```
-</ul>
 <div align="center"><div>heroku</div></div>

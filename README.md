@@ -5,4 +5,4 @@ This is the backend server for Upvan App.
 
 <h1>Usage</h1>
 <hr>
-<div style="width:100vw;display:flex;justify-content:center"><div>heroku</div></div>
+<div align="center"><div>heroku</div></div>

@@ -16,7 +16,7 @@
     "fastify": "^3.25.3",
     "fastify-cors": "^6.0.2",
     "fastify-plugin": "^3.0.0",
-    "fastify-static": "^4.5.0",
+    "fastify-static": "^4.6.1",
     "fastify-swagger": "^4.13.0",
     "mongoose": "^6.1.5",
     "nodemon": "^2.0.15",

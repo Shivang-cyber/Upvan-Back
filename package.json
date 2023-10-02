@@ -18,7 +18,7 @@
     "fastify-plugin": "^3.0.0",
     "fastify-static": "^4.5.0",
     "fastify-swagger": "^4.13.0",
-    "mongoose": "^6.1.5",
+    "mongoose": "^6.11.3",
     "nodemon": "^2.0.15",
     "path": "^0.12.7",
     "point-of-view": "^5.0.0",
